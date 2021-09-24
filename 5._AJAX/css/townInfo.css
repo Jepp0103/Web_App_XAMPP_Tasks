@@ -1,0 +1,26 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#cityDiv {
+    border-style: ridge;
+    border-radius: 0.5em;
+    padding: 0.5em;
+    margin: 0.5em;
+}
+
+#cityInputDiv {
+    display: flex;
+    justify-content: space-between;
+}
+
+#cityInput {
+    width: 100%;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+#townBtn {
+    margin-top: 0.5em;
+}

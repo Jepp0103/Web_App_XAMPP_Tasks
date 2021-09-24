@@ -1,3 +1,0 @@
-$("#aPBA").click(function () {
-    $("")
-});
