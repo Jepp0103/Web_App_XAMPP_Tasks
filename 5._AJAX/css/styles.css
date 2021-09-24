@@ -1,0 +1,180 @@
+:root {
+    --colorSecondary: white;
+    --colorHover: lightgoldenrodyellow;
+
+    --colorBgPrimary: rgb(39, 53, 74);
+    --colorBgHeader: rgb(234, 80, 71);
+    --colorBgSecondary: lightsteelblue;
+
+    --fontMain: Arial, Helvetica, sans-serif;
+    --fontNav: Verdana, Geneva, Tahoma, sans-serif;
+
+    --logoWidth: 109px;
+    --logoHeight: 35px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--fontMain);
+    font-size: 0.8rem;
+}
+@media (min-width: 768px) {
+    body {
+        font-size: 1rem;
+    }
+}
+
+header {
+    padding: 0.1rem 1rem;
+    color: var(--colorSecondary);
+    background-color: var(--colorBgHeader); 
+    text-indent: 1rem;
+    font-weight: bold;
+    font-size: 1.4em;
+    line-height: 2.2rem;
+}
+img#logo {
+    float: left;
+    width: var(--logoWidth);
+    height: var(--logoHeight);
+}
+section#pictures {    
+    margin-top: 0.5rem;
+}
+img#education {
+    float: left;
+    width: 50%;
+}
+img#building {
+    width: 50%;
+}
+@media only screen and (max-width: 510px) {
+    section#pictures > img {
+        width: 100%;
+    }
+    img#education {
+        float: none;
+    }
+}
+
+div#headerTitle {
+    overflow: auto;
+    padding-left: 1rem;
+    text-indent: 0;
+}
+
+nav section {
+    padding: 0 1rem;
+}
+nav section#mainMenu {
+    color: var(--colorSecondary);
+    background-color: var(--colorBgPrimary);
+    line-height: 2rem;
+}
+nav section#breadcrumbs {
+    background-color: var(--colorBgSecondary);
+    line-height: 1.6rem;
+    font-size: 0.9rem;
+}
+div.dropDownMenu {
+    position: relative;
+    display: none;
+    z-index: 1;
+}
+@media only screen and (min-width: 510px) {
+    div.dropDownMenu {
+        position: absolute;
+    }
+}
+
+a {
+    text-decoration: none;
+    color: var(--colorSecondary);
+    background-color: var(--colorBgPrimary);
+    font-weight: bold;
+}
+a:hover {
+    color: var(--colorHover);
+}
+a.dropDown {
+    display: block;
+    padding: 0 0.5rem;
+    border: thin solid var(--colorSecondary);
+}
+@media only screen and (min-width: 510px) {
+    a.dropDown {
+        border: none;
+    }
+}
+
+nav a {
+    padding-right: 1rem;
+    color: var(--colorSecondary);
+    font-family: var(--fontNav);
+    display: block;
+    text-align: center;
+    border-bottom: thin solid var(--colorSecondary);
+}
+nav > section > a:last-of-type {
+    border-bottom: none;
+}
+@media only screen and (min-width: 510px) {
+    nav a {
+        display: inline;
+        text-align: left;
+        border-bottom: none;
+    }
+}
+
+main {
+    padding: 0.5rem 1rem 2rem;
+    position: relative;
+    top: 0;
+    text-align: justify;
+}
+section.semester {
+    margin-top: 0.5rem;
+    border: 0.5rem solid var(--colorBgHeader);
+    border-top: 0;
+}
+section > header {
+    padding: 0 0 0 0.5rem;
+    text-indent: 0;
+    font-weight: normal;
+    font-size: 0.9em;
+}
+article.subject > header {
+    padding-left: 0;
+    border-bottom: thick solid var(--colorSecondary);
+    color: var(--colorBgPrimary);
+    background-color: var(--colorBgSecondary);
+    cursor: pointer;
+}
+article.subject > main {
+    border-right: thick solid var(--colorSecondary);
+    padding-bottom: 0.5rem;
+}
+
+footer#copyright {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    padding: 0.5rem 0;
+    color: var(--colorSecondary);
+    background-color: var(--colorBgPrimary);
+    text-align: center;
+    font-size: 0.8em;    
+}
+@media only screen and (min-width: 510px) {
+    footer#copyright {
+        position: fixed;
+    }
+}
+
+article#CS, #SD, #WD, #ITS {
+    display: none;
+}
