@@ -1,5 +1,5 @@
 {
-    "kea-it-degrees": [
+    "kea_it_degrees": [
         {
             "id": "CS",
             "name": "Computer Science",
@@ -84,7 +84,7 @@
                         {
                             "name": "Electives",
                             "description": "In addition to the obligatory part of the programme, there are two elective subjects in which you can specialise in, for example, Project Management."
-                        }                    
+                        }
                     ]
                 },
                 {

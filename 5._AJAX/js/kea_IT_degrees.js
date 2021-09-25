@@ -5,8 +5,19 @@ $(document).ready(function () {
 });
 
 function appendJsonData() {
-    $.getJSON("http://localhost/Web_App_XAMPP_Tasks/5._AJAX/data/info.json", function (data) {
-        console.log(data)
+    $.getJSON("http://localhost/web_app_xampp_tasks/5._ajax/data/info.json", function (data) {
+        console.log("data elm", data.kea_it_degrees);
+
+
+        for (let i = 0; i < data.kea_it_degrees.length; i++) {
+            $("#main").append(($("<article></article>").attr("id", data.kea_it_degrees[i].id)))
+            $("#" + data.kea_it_degrees[i].id).append("<section></section>");
+            $("#" + data.kea_it_degrees[i].id + "> section").append("<p></p>");
+            $("#" + data.kea_it_degrees[i].id + "> section > p").append(data.kea_it_degrees[i].description);
+
+            // .append("<header></header>");
+
+        }
     });
 
 
@@ -15,7 +26,7 @@ function appendJsonData() {
 
 
 function hoverElements() {
-    $("#aPBA").hover(
+    $("#aPBA, #PBAMenu").hover(
         function () {
             $("#PBAMenu").css("display", "block");
         }, function () {
