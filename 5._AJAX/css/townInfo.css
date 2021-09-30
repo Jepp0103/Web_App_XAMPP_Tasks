@@ -24,3 +24,11 @@
 #townBtn {
     margin-top: 0.5em;
 }
+
+.weatherMapSection {
+    padding: 0.5em;
+}
+
+.weatherMapSection > div {
+    border-style: groove;
+}
