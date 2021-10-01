@@ -1,7 +1,12 @@
-#movieInputDiv {
+#searchInputDiv {
     padding-bottom: 0.5em;
+    display: flex;
 }
 
-.movieImages {
+.movieImages, .personImages {
     width: 8em;
+}
+
+#movieInput {
+    width: 40%;
 }
