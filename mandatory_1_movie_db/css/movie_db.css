@@ -10,3 +10,17 @@
 #movieInput {
     width: 40%;
 }
+
+#displayedData {
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20% 20%;
+}
+
+#displayedData > div {
+    background-color: #88D1f1;
+    border-radius: 1em;
+}
+
+.dataDivs {
+    margin: 0.2em;
+}
