@@ -24,3 +24,11 @@
 .dataDivs {
     margin: 0.2em;
 }
+
+/* #ui-id-1:parent {
+    background: #88D1f1;
+} */
+
+.movieAttributes{
+    font-weight: 900;
+}
