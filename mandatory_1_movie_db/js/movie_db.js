@@ -97,7 +97,8 @@ function displayPersonDetails() {
 }
 
 function displayMovieDetails(movieDivId, data) {
-    movieIdNumber = parseInt(movieDivId.substring(5, 6));
+    let regIdExp = /\d+/;
+    let movieIdNumber = movieDivId.match(regIdExp)[0];
     console.log("movie data details", data.results[movieIdNumber]);
     $('#detailsDialog').dialog({
         autoOpen: false
@@ -128,7 +129,11 @@ function displayMovieDetails(movieDivId, data) {
         for (let i = 0; i < detailedData.genres.length; i++) { //Appending genres
             $("#detailsDialog").append("<li>" + detailedData.genres[i].name + "</li>")
         }
-    });
 
+        $("#detailsDialog").append($("<p></p>").text("Production companies:").attr("class", "movieAttributes")) //Appending production companies
+        for (let i = 0; i < detailedData.production_companies.length; i++) {
+            $("#detailsDialog").append("<li>" + detailedData.production_companies[i].name + "</li>")
+        }
+    });
     $("#detailsDialog").dialog('open');
 }
