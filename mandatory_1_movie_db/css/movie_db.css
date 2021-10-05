@@ -1,13 +1,26 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
 #searchInputDiv {
     padding-bottom: 0.5em;
     display: flex;
+}
+
+#searchSection {
+    margin: 0.3em;
+}
+
+#searchTypeBtn {
+    margin-left: 0.5em;
 }
 
 .movieImages, .personImages {
     width: 8em;
 }
 
-#movieInput {
+#searchInput {
     width: 40%;
 }
 
@@ -29,6 +42,31 @@
     background: #88D1f1;
 } */
 
-.movieAttributes{
+.descriptionAttributes{
     font-weight: 900;
 }
+
+@media (max-width: 700px) {
+    .movieImages, .personImages {
+        width: 6em;
+    }
+}
+
+@media (max-width: 550px) {
+    .movieImages, .personImages {
+        width: 4em;
+    }
+}
+
+@media (max-width: 400px) {
+    #displayedData {
+        grid-template-columns: 33% 33% 33%;
+    }
+}
+
+@media (max-width: 250px) {
+    #displayedData {
+        grid-template-columns: 100%;
+    }
+}
+

@@ -73,6 +73,10 @@ function displayPersonsData(data) {
                 .append("<p>" + data.results[i].known_for_department + "</p>")
             )
     }
+
+    $(".dataDivs").click(function () {
+        displayPersonDetails($(this).attr("id"), data);
+    })
 }
 
 function displayMoviesData(data) {
@@ -93,7 +97,57 @@ function displayMoviesData(data) {
     })
 }
 
-function displayPersonDetails() {
+function displayPersonDetails(personDivId, data) {
+    let regIdExp = /\d+/;
+    let personIdNumber = personDivId.match(regIdExp)[0];
+    console.log("person data details", data.results[personIdNumber]);
+    $('#detailsDialog').dialog({
+        autoOpen: false
+    });
+
+    //Defining another person endpoint from the person api with more person info
+    let personApiId = data.results[personIdNumber].id;
+    let detailedPersonEndpoint = "https://api.themoviedb.org/3/person/" + personApiId + "?api_key=" + apiKey;
+
+    $.get(detailedPersonEndpoint, function (detailedData) {
+        console.log("Other person data", (detailedData));
+
+        $("#detailsDialog")
+            .empty()
+            .append("<h3>" + data.results[personIdNumber].name + "</h3>")
+            .append($("<img>").attr("src", "https://image.tmdb.org/t/p/original/" + data.results[personIdNumber].profile_path).attr("class", "personImages"))
+            .append($("<p></p>").text("Main activity:").attr("class", "descriptionAttributes"))
+            .append("<p>" + data.results[personIdNumber].known_for_department + "</p>")
+            .append($("<p></p>").text("Biography:").attr("class", "descriptionAttributes"))
+            .append("<p>" + detailedData.biography + "</p>")
+            .append($("<p></p>").text("Homepage:").attr("class", "descriptionAttributes"))
+            .append($("<a></a>").attr("href", detailedData.homepage).attr("class", "descriptionAttributes").text(detailedData.homepage))
+            .append($("<p></p>").text("Birthday:").attr("class", "descriptionAttributes"))
+            .append("<p>" + detailedData.birthday + "</p>")
+            .append($("<p></p>").text("Birthplace:").attr("class", "descriptionAttributes"))
+            .append("<p>" + detailedData.place_of_birth + "</p>")
+
+        if (detailedData.deathday !== null) { //Adding day of decease if actor is dead
+            $("#detailsDialog")
+                .append($("<p></p>").text("Day of decease:").attr("class", "descriptionAttributes"))
+                .append("<p>" + detailedData.deathday + "</p>")
+        }
+
+        //Appending actor movies
+        $("#detailsDialog").append($("<p></p>").text("List of movies worked with:").attr("class", "descriptionAttributes"))
+        for (let i = 0; i < data.results[personIdNumber].known_for.length; i++) {
+            $("#detailsDialog").
+                append("<p>" + data.results[personIdNumber].known_for[i].title + "</p>").
+                append($("<li></li>").text("Release date: " + data.results[personIdNumber].known_for[i].release_date))
+            //and the role the person performed
+        }
+
+
+
+        //biography,
+        //link to the person’s website
+        $("#detailsDialog").dialog('open');
+    });
 }
 
 function displayMovieDetails(movieDivId, data) {
@@ -115,25 +169,32 @@ function displayMovieDetails(movieDivId, data) {
             .empty()
             .append("<h3>" + data.results[movieIdNumber].title + "</h3>")
             .append($("<img>").attr("src", "https://image.tmdb.org/t/p/original/" + data.results[movieIdNumber].poster_path).attr("class", "movieImages"))
-            .append($("<p></p>").text("Release date:").attr("class", "movieAttributes"))
+            .append($("<p></p>").text("Release date:").attr("class", "descriptionAttributes"))
             .append("<p>" + data.results[movieIdNumber].release_date + "</p>")
-            .append($("<p></p>").text("Original language:").attr("class", "movieAttributes"))
+            .append($("<p></p>").text("Original language:").attr("class", "descriptionAttributes"))
             .append("<p>" + data.results[movieIdNumber].original_language + "</p>")
-            .append($("<p></p>").text("Runtime:").attr("class", "movieAttributes"))
+            .append($("<p></p>").text("Runtime:").attr("class", "descriptionAttributes"))
             .append("<p>" + detailedData.runtime + " minutes</p>")
-            .append($("<p></p>").text("Overview:").attr("class", "movieAttributes"))
+            .append($("<p></p>").text("Overview:").attr("class", "descriptionAttributes"))
             .append("<p>" + data.results[movieIdNumber].overview + "</p>")
-            .append($("<a></a>").attr("href", detailedData.homepage).attr("class", "movieAttributes").text("Visit web page here"))
-            .append($("<p></p>").text("Genres:").attr("class", "movieAttributes"))
+            .append($("<a></a>").attr("href", detailedData.homepage).attr("class", "descriptionAttributes").text("Visit web page here"))
+            .append($("<p></p>").text("Genres:").attr("class", "descriptionAttributes"))
 
         for (let i = 0; i < detailedData.genres.length; i++) { //Appending genres
             $("#detailsDialog").append("<li>" + detailedData.genres[i].name + "</li>")
         }
 
-        $("#detailsDialog").append($("<p></p>").text("Production companies:").attr("class", "movieAttributes")) //Appending production companies
+        $("#detailsDialog").append($("<p></p>").text("Production companies:").attr("class", "descriptionAttributes")) //Appending production companies
         for (let i = 0; i < detailedData.production_companies.length; i++) {
             $("#detailsDialog").append("<li>" + detailedData.production_companies[i].name + "</li>")
         }
+
+        // - List of actors. For each actor, his/her name and the name of their character will be shown
+        // - List of directors
+        // - List of script writers
+        // - List of executive producers
+        // - List of producers
+        // - List of music composers
     });
     $("#detailsDialog").dialog('open');
 }
