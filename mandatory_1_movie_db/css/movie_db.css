@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: system-ui;
 }
 
 #searchInputDiv {
@@ -10,6 +11,16 @@
 
 #searchSection {
     margin: 0.3em;
+    padding: 0.5em;
+    background-color: #88D1f1;
+    border-radius: 1em;
+}
+
+button {
+    border-radius: 0.5em;
+    background: #4682b4;
+    color: #FFF;
+    font-weight: 700;
 }
 
 #searchTypeBtn {
@@ -21,29 +32,63 @@
 }
 
 #searchInput {
-    width: 40%;
+    width: 70%;
+    border-radius: 0.3em;
+    font-weight: 700;
 }
 
 #displayedData {
     display: grid;
-    grid-template-columns: 20% 20% 20% 20% 20%;
+    grid-template-columns: 33% 33% 33%;
 }
 
 #displayedData > div {
     background-color: #88D1f1;
     border-radius: 1em;
+    text-align: center;
 }
 
 .dataDivs {
     margin: 0.2em;
 }
 
-/* #ui-id-1:parent {
+.dataDivs > p {
+    font-weight: 800;
+}
+
+.ui-dialog .ui-dialog-titlebar {
     background: #88D1f1;
-} */
+}
 
 .descriptionAttributes{
     font-weight: 900;
+    font-size: 14px;
+}
+
+.dialogScrollView {
+    overflow-y: scroll;
+    height: 5em;
+    width: 80%;
+}
+
+#generalMovieDiv {
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20% 20%;
+    align-items: center;
+}
+
+#detailsDialog > p, li, a {
+    font-size: 14px;
+}
+
+#genreProdListDiv {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+#crewsDiv {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
 }
 
 @media (max-width: 700px) {

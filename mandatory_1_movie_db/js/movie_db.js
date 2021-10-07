@@ -101,9 +101,8 @@ function displayPersonDetails(personDivId, data) {
     let regIdExp = /\d+/;
     let personIdNumber = personDivId.match(regIdExp)[0];
     console.log("person data details", data.results[personIdNumber]);
-    $('#detailsDialog').dialog({
-        autoOpen: false
-    });
+
+    populateDialog();
 
     //Defining another person endpoint from the person api with more person info
     let personApiId = data.results[personIdNumber].id;
@@ -141,11 +140,6 @@ function displayPersonDetails(personDivId, data) {
                 append($("<li></li>").text("Release date: " + data.results[personIdNumber].known_for[i].release_date))
             //and the role the person performed
         }
-
-
-
-        //biography,
-        //link to the person’s website
         $("#detailsDialog").dialog('open');
     });
 }
@@ -154,47 +148,141 @@ function displayMovieDetails(movieDivId, data) {
     let regIdExp = /\d+/;
     let movieIdNumber = movieDivId.match(regIdExp)[0];
     console.log("movie data details", data.results[movieIdNumber]);
-    $('#detailsDialog').dialog({
-        autoOpen: false
-    });
+
+    populateDialog();
 
     //Defining another movie endpoint from the movie api with more movie info
-    let movieApiId = data.results[movieIdNumber].id;
-    let detailedMovieEndpoint = "https://api.themoviedb.org/3/movie/" + movieApiId + "?api_key=" + apiKey;
+    let movieId = data.results[movieIdNumber].id;
+    console.log("api id", movieId)
+    let detailedMovieEndpoint = "https://api.themoviedb.org/3/movie/" + movieId + "?api_key=" + apiKey;
+    let creditsEndpoint = "https://api.themoviedb.org/3/movie/" + movieId + "/credits?api_key=" + apiKey;
 
     $.get(detailedMovieEndpoint, function (detailedData) {
         console.log("Other movie data", (detailedData));
 
-        $("#detailsDialog")
-            .empty()
-            .append("<h3>" + data.results[movieIdNumber].title + "</h3>")
-            .append($("<img>").attr("src", "https://image.tmdb.org/t/p/original/" + data.results[movieIdNumber].poster_path).attr("class", "movieImages"))
-            .append($("<p></p>").text("Release date:").attr("class", "descriptionAttributes"))
-            .append("<p>" + data.results[movieIdNumber].release_date + "</p>")
-            .append($("<p></p>").text("Original language:").attr("class", "descriptionAttributes"))
-            .append("<p>" + data.results[movieIdNumber].original_language + "</p>")
-            .append($("<p></p>").text("Runtime:").attr("class", "descriptionAttributes"))
-            .append("<p>" + detailedData.runtime + " minutes</p>")
-            .append($("<p></p>").text("Overview:").attr("class", "descriptionAttributes"))
-            .append("<p>" + data.results[movieIdNumber].overview + "</p>")
-            .append($("<a></a>").attr("href", detailedData.homepage).attr("class", "descriptionAttributes").text("Visit web page here"))
-            .append($("<p></p>").text("Genres:").attr("class", "descriptionAttributes"))
+        $.get(creditsEndpoint, function (creditsData) {
+            console.log("credits data", creditsData)
+            $("#detailsDialog")
+                .empty()
+                .append($("<div></div>").attr("id", "generalMovieDiv")
+                    .append($("<div></div")
+                        .append("<h3>" + data.results[movieIdNumber].title + "</h3>")
+                        .append($("<img>").attr("src", "https://image.tmdb.org/t/p/original/" + data.results[movieIdNumber].poster_path).attr("class", "movieImages")))
+                    .append($("<div></div")
+                        .append($("<p></p>").text("Release date:").attr("class", "descriptionAttributes"))
+                        .append("<p>" + data.results[movieIdNumber].release_date + "</p>"))
+                    .append($("<div></div")
+                        .append($("<p></p>").text("Original language:").attr("class", "descriptionAttributes"))
+                        .append("<p>" + data.results[movieIdNumber].original_language + "</p>"))
+                    .append($("<div></div")
+                        .append($("<p></p>").text("Runtime:").attr("class", "descriptionAttributes"))
+                        .append("<p>" + detailedData.runtime + " minutes</p>"))
+                    .append($("<div></div")
+                        .append($("<p></p>").text("Website:").attr("class", "descriptionAttributes"))
+                        .append($("<a></a>").attr("href", detailedData.homepage).text(detailedData.homepage)))
+                )
 
-        for (let i = 0; i < detailedData.genres.length; i++) { //Appending genres
-            $("#detailsDialog").append("<li>" + detailedData.genres[i].name + "</li>")
-        }
+            //Overview description
+            $("#detailsDialog").append($("<p></p>").text("Overview:").attr("class", "descriptionAttributes"))
+                .append("<p>" + data.results[movieIdNumber].overview + "</p>")
 
-        $("#detailsDialog").append($("<p></p>").text("Production companies:").attr("class", "descriptionAttributes")) //Appending production companies
-        for (let i = 0; i < detailedData.production_companies.length; i++) {
-            $("#detailsDialog").append("<li>" + detailedData.production_companies[i].name + "</li>")
-        }
+            //Appending div for genres and production companies
+            $("#detailsDialog")
+                .append($("<div></div>").attr("id", "genreProdListDiv")
+                    .append($("<div></div>").attr("id", "genresDiv"))
+                    .append($("<div></div>").attr("id", "productCompDiv"))
+                );
 
-        // - List of actors. For each actor, his/her name and the name of their character will be shown
-        // - List of directors
-        // - List of script writers
-        // - List of executive producers
-        // - List of producers
-        // - List of music composers
+            $("#genresDiv").append($("<p></p>").text("Genres:").attr("class", "descriptionAttributes"))
+            for (let i = 0; i < detailedData.genres.length; i++) { //Appending genres
+                $("#genresDiv").append("<li>" + detailedData.genres[i].name + "</li>")
+            }
+
+            $("#productCompDiv").append($("<p></p>").text("Production companies:").attr("class", "descriptionAttributes")); //Appending production companies
+            for (let i = 0; i < detailedData.production_companies.length; i++) {
+                $("#productCompDiv").append("<li>" + detailedData.production_companies[i].name + "</li>");
+            }
+
+            //Appending div for actors, directors, script writers, executive producers, producers and composers
+            $("#detailsDialog")
+                .append($("<div></div>").attr("id", "crewsDiv")
+                    .append($("<div></div>").attr("id", "actorsDiv"))
+                    .append($("<div></div>").attr("id", "directorsDiv"))
+                    .append($("<div></div>").attr("id", "scriptWritersDiv"))
+                    .append($("<div></div>").attr("id", "execProdDiv"))
+                    .append($("<div></div>").attr("id", "prodDiv"))
+                    .append($("<div></div>").attr("id", "compDiv"))
+                );
+
+            $("#actorsDiv") //Appending actors
+                .append($("<p></p>").text("List of actors:").attr("class", "descriptionAttributes"))
+                .append($("<ul></ul>").attr("class", "dialogScrollView"))
+            for (let i = 0; i < creditsData.cast.length; i++) {
+                $("#actorsDiv > ul")
+                    .append($("<li>" + creditsData.cast[i].name + "</li>"));
+            }
+
+            //Appending directors
+            $("#directorsDiv").append($("<p></p>").text("Directors:").attr("class", "descriptionAttributes"))
+                .append($("<ul></ul>").attr("class", "dialogScrollView"))
+            for (let i = 0; i < creditsData.crew.length; i++) {
+                if (creditsData.crew[i].department === "Directing") {
+                    $("#directorsDiv > ul")
+                        .append($("<li>" + creditsData.crew[i].name + "</li>"));
+                }
+            }
+
+            //Appending script writers
+            $("#scriptWritersDiv").append($("<p></p>").text("Script writers:").attr("class", "descriptionAttributes"))
+                .append($("<ul></ul>").attr("class", "dialogScrollView"))
+            for (let i = 0; i < creditsData.crew.length; i++) {
+                if (creditsData.crew[i].department === "Writing") {
+                    $("#scriptWritersDiv > ul")
+                        .append($("<li>" + creditsData.crew[i].name + "</li>"));
+                }
+            }
+
+            //Appending executive producers
+            $("#execProdDiv").append($("<p></p>").text("Executive producers:").attr("class", "descriptionAttributes"))
+                .append($("<ul></ul>").attr("class", "dialogScrollView"))
+            for (let i = 0; i < creditsData.crew.length; i++) {
+                if (creditsData.crew[i].job === "Executive Producer") {
+                    $("#execProdDiv > ul")
+                        .append($("<li>" + creditsData.crew[i].name + "</li>"));
+                }
+            }
+
+            //Appending producers
+            $("#prodDiv").append($("<p></p>").text("Producers:").attr("class", "descriptionAttributes"))
+                .append($("<ul></ul>").attr("class", "dialogScrollView"))
+            for (let i = 0; i < creditsData.crew.length; i++) {
+                if (creditsData.crew[i].department === "Production") {
+                    $("#prodDiv > ul")
+                        .append($("<li>" + creditsData.crew[i].name + "</li>"));
+                }
+            }
+
+            //Appending music composers
+            $("#compDiv").append($("<p></p>").text("Music composers:").attr("class", "descriptionAttributes"))
+                .append($("<ul></ul>").attr("class", "dialogScrollView"))
+            for (let i = 0; i < creditsData.crew.length; i++) {
+                if (creditsData.crew[i].job === "Composer") {
+                    $("#compDiv > ul")
+                        .append($("<li>" + creditsData.crew[i].job + "</li>"));
+                }
+            }
+        });
     });
     $("#detailsDialog").dialog('open');
+}
+
+function populateDialog() {
+    $('#detailsDialog').dialog({
+        autoOpen: false,
+        modal: true,
+        width: "80%",
+        maxHeight: "80%",
+        resizable: false,
+        draggable: false
+    });
 }
