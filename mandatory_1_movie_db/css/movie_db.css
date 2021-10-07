@@ -39,7 +39,7 @@ button {
 
 #displayedData {
     display: grid;
-    grid-template-columns: 33% 33% 33%;
+    grid-template-columns: 20% 20% 20% 20% 20%;
 }
 
 #displayedData > div {
@@ -69,6 +69,7 @@ button {
     overflow-y: scroll;
     height: 5em;
     width: 80%;
+    border-style: groove;
 }
 
 #generalMovieDiv {
@@ -77,7 +78,7 @@ button {
     align-items: center;
 }
 
-#detailsDialog > p, li, a {
+p, li, a {
     font-size: 14px;
 }
 
@@ -91,6 +92,12 @@ button {
     grid-template-columns: 33% 33% 33%;
 }
 
+#generalPersonDiv {
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20% 20%;
+    align-items: center;
+}
+
 @media (max-width: 700px) {
     .movieImages, .personImages {
         width: 6em;
@@ -100,6 +107,10 @@ button {
 @media (max-width: 550px) {
     .movieImages, .personImages {
         width: 4em;
+    }
+
+    #displayedData {
+        grid-template-columns: 25% 25% 25% 25%;
     }
 }
 

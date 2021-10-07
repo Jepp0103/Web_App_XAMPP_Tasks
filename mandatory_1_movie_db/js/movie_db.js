@@ -42,7 +42,7 @@ function getMoviesApi() {
         let inputMovieYear = inputMovieTitle.match(regNumExp)[0]; //Getting the first 4 digits in search input with regex
         let yearParam = "&page=1&include_adult=false&year=" + inputMovieYear;
         $.post(baseUrl + apiKey + titleParam + yearParam, function (data) {
-            displayMovieData(data)
+            displayMoviesData(data)
         });
     } else {
         $.post(baseUrl + apiKey + titleParam, function (data) {
@@ -62,7 +62,6 @@ function getPersonsApi() {
 }
 
 function displayPersonsData(data) {
-    console.log("persons display data", data)
     $("#displayedData").empty(); //Removes already displayed data before appending new ones
 
     for (let i = 0; i < data.results.length; i++) { //Iterating through the persons data list.
@@ -100,8 +99,6 @@ function displayMoviesData(data) {
 function displayPersonDetails(personDivId, data) {
     let regIdExp = /\d+/;
     let personIdNumber = personDivId.match(regIdExp)[0];
-    console.log("person data details", data.results[personIdNumber]);
-
     populateDialog();
 
     //Defining another person endpoint from the person api with more person info
@@ -109,22 +106,35 @@ function displayPersonDetails(personDivId, data) {
     let detailedPersonEndpoint = "https://api.themoviedb.org/3/person/" + personApiId + "?api_key=" + apiKey;
 
     $.get(detailedPersonEndpoint, function (detailedData) {
-        console.log("Other person data", (detailedData));
-
         $("#detailsDialog")
             .empty()
-            .append("<h3>" + data.results[personIdNumber].name + "</h3>")
-            .append($("<img>").attr("src", "https://image.tmdb.org/t/p/original/" + data.results[personIdNumber].profile_path).attr("class", "personImages"))
-            .append($("<p></p>").text("Main activity:").attr("class", "descriptionAttributes"))
-            .append("<p>" + data.results[personIdNumber].known_for_department + "</p>")
+            .append($("<div></div>").attr("id", "generalPersonDiv")
+                .append($("<div></div>")
+                    .append("<h3>" + data.results[personIdNumber].name + "</h3>")
+                    .append($("<img>").attr("src", "https://image.tmdb.org/t/p/original/" + data.results[personIdNumber].profile_path).attr("class", "personImages")))
+                .append($("<div></div>")
+                    .append($("<p></p>").text("Main activity:").attr("class", "descriptionAttributes"))
+                    .append("<p>" + data.results[personIdNumber].known_for_department + "</p>"))
+                .append($("<div></div>").attr("id", "homepageDiv")
+                    .append($("<p></p>").text("Homepage:").attr("class", "descriptionAttributes")))
+                .append($("<div></div>")
+                    .append($("<p></p>").text("Birthday:").attr("class", "descriptionAttributes"))
+                    .append("<p>" + detailedData.birthday + "</p>"))
+                .append($("<div></div>")
+                    .append($("<p></p>").text("Birthplace:").attr("class", "descriptionAttributes"))
+                    .append("<p>" + detailedData.place_of_birth + "</p>"))
+            )
+
+        if (detailedData.homepage != null) { //If there is no homepage for a movie
+            $("#homepageDiv").append($("<a></a>").attr("href", detailedData.homepage).text("Click here"))
+        } else {
+            $("#homepageDiv").append($("<p></p>").text("No page to show"))
+        }
+
+
+        $("#detailsDialog") //Actor description
             .append($("<p></p>").text("Biography:").attr("class", "descriptionAttributes"))
             .append("<p>" + detailedData.biography + "</p>")
-            .append($("<p></p>").text("Homepage:").attr("class", "descriptionAttributes"))
-            .append($("<a></a>").attr("href", detailedData.homepage).attr("class", "descriptionAttributes").text(detailedData.homepage))
-            .append($("<p></p>").text("Birthday:").attr("class", "descriptionAttributes"))
-            .append("<p>" + detailedData.birthday + "</p>")
-            .append($("<p></p>").text("Birthplace:").attr("class", "descriptionAttributes"))
-            .append("<p>" + detailedData.place_of_birth + "</p>")
 
         if (detailedData.deathday !== null) { //Adding day of decease if actor is dead
             $("#detailsDialog")
@@ -147,26 +157,21 @@ function displayPersonDetails(personDivId, data) {
 function displayMovieDetails(movieDivId, data) {
     let regIdExp = /\d+/;
     let movieIdNumber = movieDivId.match(regIdExp)[0];
-    console.log("movie data details", data.results[movieIdNumber]);
 
     populateDialog();
 
     //Defining another movie endpoint from the movie api with more movie info
     let movieId = data.results[movieIdNumber].id;
-    console.log("api id", movieId)
     let detailedMovieEndpoint = "https://api.themoviedb.org/3/movie/" + movieId + "?api_key=" + apiKey;
     let creditsEndpoint = "https://api.themoviedb.org/3/movie/" + movieId + "/credits?api_key=" + apiKey;
 
     $.get(detailedMovieEndpoint, function (detailedData) {
-        console.log("Other movie data", (detailedData));
-
         $.get(creditsEndpoint, function (creditsData) {
-            console.log("credits data", creditsData)
             $("#detailsDialog")
                 .empty()
+                .append("<h3>" + data.results[movieIdNumber].title + "</h3>")
                 .append($("<div></div>").attr("id", "generalMovieDiv")
                     .append($("<div></div")
-                        .append("<h3>" + data.results[movieIdNumber].title + "</h3>")
                         .append($("<img>").attr("src", "https://image.tmdb.org/t/p/original/" + data.results[movieIdNumber].poster_path).attr("class", "movieImages")))
                     .append($("<div></div")
                         .append($("<p></p>").text("Release date:").attr("class", "descriptionAttributes"))
@@ -177,10 +182,16 @@ function displayMovieDetails(movieDivId, data) {
                     .append($("<div></div")
                         .append($("<p></p>").text("Runtime:").attr("class", "descriptionAttributes"))
                         .append("<p>" + detailedData.runtime + " minutes</p>"))
-                    .append($("<div></div")
-                        .append($("<p></p>").text("Website:").attr("class", "descriptionAttributes"))
-                        .append($("<a></a>").attr("href", detailedData.homepage).text(detailedData.homepage)))
+                    .append($("<div></div").attr("id", "homepageDiv")
+                        .append($("<p></p>").text("Homepage:").attr("class", "descriptionAttributes"))
+                    )
                 )
+
+            if (detailedData.homepage != null || detailedData.homepage != "") { //Validating a homepage to exist or not for a movie
+                $("#homepageDiv").append($("<a></a>").attr("href", detailedData.homepage).text("Click here"))
+            } else {
+                $("#homepageDiv").append($("<p></p>").text("No page to show"))
+            }
 
             //Overview description
             $("#detailsDialog").append($("<p></p>").text("Overview:").attr("class", "descriptionAttributes"))
@@ -266,7 +277,7 @@ function displayMovieDetails(movieDivId, data) {
             $("#compDiv").append($("<p></p>").text("Music composers:").attr("class", "descriptionAttributes"))
                 .append($("<ul></ul>").attr("class", "dialogScrollView"))
             for (let i = 0; i < creditsData.crew.length; i++) {
-                if (creditsData.crew[i].job === "Composer") {
+                if (creditsData.crew[i].job === "Original Music Composer") {
                     $("#compDiv > ul")
                         .append($("<li>" + creditsData.crew[i].job + "</li>"));
                 }
