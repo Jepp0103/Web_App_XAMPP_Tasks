@@ -98,6 +98,18 @@ p, li, a {
     align-items: center;
 }
 
+@media (max-width: 940px) {
+   #generalMovieDiv {
+    grid-template-columns: 25% 25% 25% 25%;
+   }
+}
+
+@media (max-width: 770px) {
+    #generalMovieDiv {
+     grid-template-columns: 33% 33% 33%;
+    }
+ }
+
 @media (max-width: 700px) {
     .movieImages, .personImages {
         width: 6em;
@@ -114,9 +126,19 @@ p, li, a {
     }
 }
 
+
 @media (max-width: 400px) {
     #displayedData {
         grid-template-columns: 33% 33% 33%;
+    }
+    #crewsDiv {
+        grid-template-columns: 50% 50%;
+    }
+}
+
+@media (max-width: 330px) {
+    #generalMovieDiv {
+        grid-template-columns: 50%;
     }
 }
 
