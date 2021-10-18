@@ -1,0 +1,33 @@
+body {
+    font-family: 'Segoe UI';
+}
+
+header, footer {
+    background-color: #20408a;
+}
+
+footer {
+    text-align: center;
+}
+
+header > h1, footer > p {
+    color: #FFFF;
+    padding: 0.5rem;
+}
+
+#calcBtn {
+    color: #283450;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+}
+
+#resultDiv > p {
+    font-weight: bold;
+}
+
+#resultDiv {
+    background-color: #a9abae;
+    border-radius: 1rem;
+    padding: 0.1em;
+    padding-left: 1em;
+}
