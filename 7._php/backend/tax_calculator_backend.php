@@ -3,14 +3,14 @@
         $monetaryAmount = $_POST["monetary_amount"];
         $taxPercentage = $_POST["tax_percentage"];
 
-        echo calculateTaxAmount($monetaryAmount, $taxPercentage);
+        calculateTaxAndFinalAmount($monetaryAmount, $taxPercentage);
     }
 
-    function calculateTaxAmount($monetaryAmount, $taxPercentage) {
-        echo "Monetary amount:" . $monetaryAmount . "<br>";
-        echo "Tax percentage:". $taxPercentage;
+    function calculateTaxAndFinalAmount($monetaryAmount, $taxPercentage) {
         $taxAmount = $monetaryAmount * ($taxPercentage * 0.01);
-        echo $taxAmount;
+        $finalAmount = $monetaryAmount - $taxAmount;
+        echo "<p>Tax amount: <span>" . $taxAmount . "</span> </p>";
+        echo "<p>Final amount: <span>" . $finalAmount . "</span> </p>";
     }
     
 ?>

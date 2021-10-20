@@ -27,21 +27,11 @@
             </div>
             <br>
             <div id="resultDiv">
-                <p>Tax amount:
-                    <span id="taxAmount">
-                        <?php  ?>
-                    </span>
-                </p>
-                <p>Final amount:
-                    <span id="finalAmount">
-                    </span>
-                </p>
-            </div>
+               <?php include "./backend/tax_calculator_backend.php" ?>
             </div>
         </main>
         <footer>
             <p id="copyrightText">&#169; 2021 Jeppe Nannestad Dyekjaer</p>
         </footer>
     </body>
-    <?php include "./backend/tax_calculator_backend.php" ?>
 </html>

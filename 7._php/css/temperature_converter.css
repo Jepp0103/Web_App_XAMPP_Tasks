@@ -1,0 +1,81 @@
+* {
+    margin: 0;
+    padding: 0rem;
+}
+
+header > h1, footer > p {
+    color: #FFFF;
+    padding: 0.5rem;
+}
+
+body {
+    font-family: 'Segoe UI';
+}
+
+header, footer {
+    background-color: #20408a;
+}
+
+
+footer {
+    text-align: center;
+}
+
+header > h1, footer > p {
+    color: #FFFF;
+    padding-left: 2rem;
+}
+
+ul {
+    overflow-y: scroll; 
+    list-style: none;
+}
+
+#fromConv, #toConv {
+    border-style: groove;
+    border-color: #000;
+}
+
+li {
+    text-align: left;
+}
+
+#convDiv {
+    display: flex;
+    justify-content: space-evenly;
+    padding-right: 1.5em;
+}
+
+#formDiv {
+    width: 15em;
+}
+
+#calcBtn {
+    position: relative;
+    left: 1em;
+    color: #20408a;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
+}
+
+#convertNumberLabel{
+    padding-left: 1em;
+}
+
+#convertNumber  {
+    position: relative;
+    left: 1.3em;
+}
+
+#from_cel, #from_fahr, #from_kel, #to_cel, #to_fahr, #to_kel {
+    cursor: pointer;
+}
+
+#resultDiv {
+    background-color: #a9abae;
+    border-radius: 1rem;
+    padding: 0.8em;
+    margin-right: 1em;
+    margin-left: 1em;
+}
