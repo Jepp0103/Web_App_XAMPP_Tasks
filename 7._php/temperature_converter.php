@@ -18,42 +18,43 @@
             <form method="post">
                 <label for="convertNumber" id="convertNumberLabel">Convert</label>
                 <br>
-                <input type="number" id="convertNumber">
+                <input name="convertNumber" type="number" id="convertNumber">
                 <div id="convDiv">
                     <div id="fromDiv">
                         <label for="fromConv">From</label>
                         <br>
-                        <select size="3" name="fromConv" id="fromConv">
-                            <option id=from_cel>
-                                Celcius
-                            </option>
-                            <option id="from_fahr">
-                                Fahrenheit
-                            </option>
-                            <option id="from_kel">
-                                Kelvin
-                            </option>
-                        </select>
+                            <select size="3" name="fromConv" id="fromConv">
+                                    <option name="from_cel" id=from_cel>
+                                        Celcius
+                                    </option>
+                                    <option id="from_fahr" name = "from_fahr">
+                                        Fahrenheit
+                                    </option>
+                                    <option id="from_kel" name = "from_kel">
+                                        Kelvin
+                                    </option>
+                            </select>
                     </div>
                     <div id="toDiv">
                         <label for="toConv">To</label>
                         <br>
-                        <select size="3" name="fromConv" id="toConv">
-                            <option id="to_cel">
+                        <select size="3" name="toConv" id="toConv">
+                            <option id="to_cel" name = "to_cel">
                                 Celcius
                             </option>
-                            <option id="to_fahr">
+                            <option id="to_fahr" name = "to_fahr">
                                 Fahrenheit
                             </option>
-                            <option id="to_kel">
+                            <option id="to_kel" name = "to_kel">
                                 Kelvin
                             </option>
                         </select>
                     </div>
-                </form>
-            </div>
+                </div>
+                <br>
+                <input type="submit" class="button" name="calcTempBtn" id="calcBtn" value="Calculate"></button>
+            </form>
             <br>
-            <button id="calcBtn">Calculate</button>
         </div>
     </main>
     <br>
