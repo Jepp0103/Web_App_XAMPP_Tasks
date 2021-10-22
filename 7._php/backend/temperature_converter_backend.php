@@ -1,7 +1,7 @@
 <?php
     if (isset($_POST["fromConv"]) && isset($_POST["toConv"]) && isset($_POST["convertNumber"])) {
         $convertNumber = $_POST["convertNumber"];
-        $fromUnit = $_POST["fromConv"]; //Setting chosen units in dropdown globally in order to do the calculation
+        $fromUnit = $_POST["fromConv"];
         $toUnit = $_POST["toConv"];
         calculateTemperatureConversion($fromUnit, $toUnit, $convertNumber);
     }
@@ -18,7 +18,7 @@
                 break;
             case ["Fahrenheit", "Celcius"]:
                 $resultNumber = ($convertNumber - 32) / 1.8;
-                display($convertNumber, "°F", $resultNumber, "K");
+                display($convertNumber, "°F", $resultNumber, "°C");
                 break;
             case ["Fahrenheit", "Kelvin"]:
                 $resultNumber = ($convertNumber - 32) * 5 / 9 + 273.15;
@@ -33,21 +33,13 @@
                 display($convertNumber, "K", $resultNumber, "°F");
                 break;
             default:
-                echo "Could not convert the values.";
+                echo "Cannot convert to the same value.";
         }
     }
 
-    display($convertNumber, $unitFrom, $resultNumber, $unitTo) {
-        echo $convertNumber;
-        echo "<br>";
-        echo $unitFrom;
-        echo "<br>";
-        echo $resultNumber; 
-        echo "<br>";
-        echo $unitTo;
-        echo "<br>";
-
-        // echo "<p>{$convertNumber}{$unitFrom} = <b>{$resultNumber}{$unitTo}</b></p>";
-        // echo "<p>" . $convertNumber . $unitFrom . " = <b> " . $resultNumber . $unitTo . "</b> </p>";
+    function display($convertNumber, $unitFrom, $resultNumber, $unitTo) {
+        $roundConvertNumber = round($convertNumber, 2);
+        $roundResultNumber = round($resultNumber, 2);
+         echo "<p>{$roundConvertNumber}{$unitFrom} = <b>{$roundResultNumber}{$unitTo}</b></p>";
     }
 ?>

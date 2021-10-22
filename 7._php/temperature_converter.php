@@ -18,12 +18,12 @@
             <form method="post">
                 <label for="convertNumber" id="convertNumberLabel">Convert</label>
                 <br>
-                <input name="convertNumber" type="number" id="convertNumber">
+                <input name="convertNumber" type="number" id="convertNumber" required>
                 <div id="convDiv">
                     <div id="fromDiv">
                         <label for="fromConv">From</label>
                         <br>
-                            <select size="3" name="fromConv" id="fromConv">
+                            <select size="3" name="fromConv" id="fromConv" required>
                                     <option name="from_cel" id=from_cel>
                                         Celcius
                                     </option>
@@ -38,7 +38,7 @@
                     <div id="toDiv">
                         <label for="toConv">To</label>
                         <br>
-                        <select size="3" name="toConv" id="toConv">
+                        <select size="3" name="toConv" id="toConv" required>
                             <option id="to_cel" name = "to_cel">
                                 Celcius
                             </option>
