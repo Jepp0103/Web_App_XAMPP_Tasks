@@ -1,0 +1,28 @@
+:root {
+    --colorBgPrimary: white;
+    --colorBgSecondary: #20408A;
+    --colorBorder: lightgrey;
+
+    --fontMain: 'Raleway', Arial, Helvetica, sans-serif;
+    --fontCode: Consolas, 'Courier New', Monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--fontMain);
+}
+
+header {
+    padding: 0.5rem 0 0.5rem 2rem;
+    color: var(--colorBgPrimary);
+    background-color: var(--colorBgSecondary);
+}
+
+main > section {
+    padding-left: 1em;
+    padding-right: 1em;
+}
