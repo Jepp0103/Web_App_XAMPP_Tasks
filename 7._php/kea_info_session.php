@@ -11,7 +11,7 @@
     <header>
         <h1>  
             <?php 
-                include "./backend/kea_info_backend/kea_title_backend.php";
+                include "./backend/kea_info_backend/session_kea_title_backend.php";
             ?>
         </h1>
         <form method="post">
@@ -25,7 +25,7 @@
     <main>
         <section>
             <?php
-                include "./backend/kea_info_backend/kea_text_backend.php";
+                include "./backend/kea_info_backend/session_kea_text_backend.php";
             ?>
         </section>
     </main>
