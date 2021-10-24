@@ -16,8 +16,8 @@
         </h1>
         <form method="post">
             <select name="languages" id="languages" onchange="this.form.submit();">
-                <option>Danish</option>
-                <option>English</option>
+                <option value="danish">Danish</option>
+                <option value="english">English</option>
                 <option selected="selected">Choose language</option>
             </select>
         </form>

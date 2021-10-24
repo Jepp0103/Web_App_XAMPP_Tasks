@@ -12,6 +12,11 @@
     padding: 0;
 }
 
+h1 { 
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+}
+
 body {
     font-family: var(--fontMain);
 }
@@ -23,6 +28,5 @@ header {
 }
 
 main > section {
-    padding-left: 1em;
-    padding-right: 1em;
+  padding: 1em;
 }
