@@ -1,0 +1,11 @@
+{
+    "repository": {
+        "type": "none"
+    },
+    "author": "Arturo Mora-Rioja",
+    "license": "CC-BY-NC-SA-4.0",
+    "description": "A jQuery exercise for my students at KEA",
+    "devDependencies": {
+        "eslint": "^7.4.0"
+    }
+}

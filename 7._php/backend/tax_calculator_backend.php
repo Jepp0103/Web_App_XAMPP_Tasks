@@ -1,5 +1,5 @@
 <?php
-    if(array_key_exists('calcBtn', $_POST)) {
+    if (array_key_exists('calcBtn', $_POST) && isset($_POST["monetary_amount"]) && isset($_POST["tax_percentage"])) {
         $monetaryAmount = $_POST["monetary_amount"];
         $taxPercentage = $_POST["tax_percentage"];
 

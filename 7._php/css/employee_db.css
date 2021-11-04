@@ -1,0 +1,37 @@
+body {
+    font-family: 'Segoe UI';
+}
+
+header, footer {
+    background-color: #20408a;
+}
+
+nav {
+    background-color: lightblue;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+footer {
+    text-align: center;
+}
+
+header > h1, h4, footer > p {
+    color: #FFFF;
+    padding: 0.5rem;
+}
+
+#resultDiv > p {
+    font-weight: bold;
+}
+
+#resultDiv {
+    background-color: #a9abae;
+    border-radius: 1rem;
+    padding: 0.1em;
+    padding-left: 1em;
+}

@@ -1,0 +1,27 @@
+{
+    "env": {
+        "browser": true,
+        "es2020": true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "ecmaVersion": 11
+    },
+    "rules": {
+        "strict": ["error", "global"],
+        "no-var": "error",
+        "prefer-const": "error",
+        "camelcase": "error",
+        "no-unused-vars": "error",
+        "no-multi-assign": "error",
+        "quotes": ["error", "double"],
+        "no-array-constructor": "error",
+        "no-new-object": "error",
+        "no-new-wrappers": "error",
+        "no-extra-boolean-cast": "error",
+        "eqeqeq": "error",
+        "yoda": "error",
+        "no-unneeded-ternary": "error",
+        "no-nested-ternary": "error"
+    }
+}

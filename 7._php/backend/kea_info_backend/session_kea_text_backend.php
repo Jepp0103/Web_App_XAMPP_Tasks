@@ -1,11 +1,11 @@
 <?php 
-    // session_start(); have understood the concept, can't create two sessions
+    // session_start(); have understood the concept, can't create two sessions at the same time
 
     if (isset($_POST["languages"])) {
         $language = $_POST["languages"];
         displayText($language);
     } else if (isset($_SESSION["text_session"])) {
-        echo $_SESSION["text_session"]; //Echoing stored session if page is opened on new.
+        echo $_SESSION["text_session"]; //Echoing stored session if page is reopened.
     } else {
         echo "";
     }
