@@ -1,30 +1,37 @@
 <?php
     include "employees_db.php";
 
-    // $employees = $pdo->query("SELECT first_name, last_name FROM employees e INNER JOIN dept_manager d ON e.emp_no = d.emp_no");
-    $departments = $pdo->query("SELECT dept_name, first_name, last_name FROM departments de INNER JOIN dept_manager d ON de.dept_no = d.dept_no INNER JOIN employees e ON d.emp_no = e.emp_no");
+    $departments_query = <<<"SQL"
+                            SELECT dept_name, CONCAT(e.last_name, ', ', e.first_name) AS manager 
+                            FROM departments de 
+                                LEFT JOIN dept_manager d ON de.dept_no = d.dept_no 
+                                LEFT JOIN employees e ON d.emp_no = e.emp_no
+                            SQL;
+    $departments;
 
-    if ($departments != null) {
-        $departments_arr = array();
-        $employees_arr = array();
-        while($department = $departments->fetch()) {
-            array_push($departments_arr, $department["dept_name"]);
-            array_push($employees_arr, $department["first_name"], $department["last_name"]);
-        }
-        // echo "<td>";
-            print_t($departments_arr)
-        // echo "</td>";
-
-
-        // echo "<td>";
-            print_t($employees_arr)
-
-        // echo "</td>";
-
-
+    if (isset($_GET["p"]) && $_GET["p"] === "name") {
+        $departments_query .= " ORDER BY de.dept_name;";
+        $departments = $pdo->query($departments_query);
+        displayDepartments($departments);
+    } else if (isset($_GET["p"]) && $_GET["p"] === "manager") {
+        $departments_query .= " ORDER BY manager;";
+        $departments = $pdo->query($departments_query);
+        displayDepartments($departments);
+    } else {
+        $departments = $pdo->query($departments_query);
+        displayDepartments($departments);
     }
 
-
-
-
+    function displayDepartments($deps) {
+        if ($deps != null) {
+            while($department = $deps->fetch()) {
+                echo<<<ROW
+                    <tr>
+                        <td>{$department["dept_name"]}</td>
+                        <td>{$department["manager"]}</td>
+                    </tr>
+                ROW;
+            }
+        }
+    }
 ?>

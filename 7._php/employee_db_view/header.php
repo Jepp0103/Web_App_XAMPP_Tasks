@@ -5,14 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/employee_db.css">
-    <title>Departments - Employee DB</title>
+    <title>Employees - Employee db</title>
 </head>
 <body>
+    <nav>
+        <a href="./index.php?p=name">Departments</a>
+        <a href="./index.php?p=emp">Employees</a>
+    </nav>
     <header>
-        <nav>
-            <a href="./department_page.php">Departments</a>
-            <a href="./employee_page.php">Employees</a>
-        </nav>
+        <h1>Employee Database</h1>
     </header>
-</body>
-</html>
