@@ -1,0 +1,81 @@
+:root {
+    --colorTextPrimary: black;
+    --colorTextSecondary: #FFF;
+    --colorBgHeader: #20408A;
+    --colorBgNav: lightblue;
+    --colorBgTable: red;
+
+    --fontMain: 'Raleway', Arial, Helvetica, sans-serif;
+    --fontData: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+}
+
+
+body {
+    font-family: 'Segoe UI';
+}
+
+header, footer {
+    background-color: var(--colorBgHeader);
+}
+
+nav {
+    background-color: lightblue;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+footer {
+    text-align: center;
+}
+
+header > h1, footer > p {
+    color: #FFFF;
+    padding: 0.5rem;
+}
+
+h4 {
+    background-color: var(--colorBgHeader);
+    color: var(--colorTextSecondary);
+}
+
+#resultDiv > p {
+    font-weight: bold;
+}
+
+#resultDiv {
+    background-color: #a9abae;
+    border-radius: 1rem;
+    padding: 0.1em;
+    padding-left: 1em;
+}
+
+table {
+    width: 100%;
+    text-align: left;
+    border-spacing: 0;
+}
+
+th {
+    background-color: var(--colorBgTable);
+}
+
+th > a {
+    color: var(--colorTextSecondary);
+}
+
+td, th {
+    border: solid thin var(--colorTextPrimary);
+    padding: 0 0.5rem;
+}
+
+footer {
+    color: var(--colorTextSecondary);
+}
+
+section {
+    padding: 1em;
+}
