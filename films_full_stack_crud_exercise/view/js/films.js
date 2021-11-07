@@ -1,7 +1,7 @@
 getFilms()
 
 function getFilms() {
-    const filmsEndpoint = "http://localhost/web_app_xampp_tasks/Films_full_stack_crud_exercise/model/films.php";
+    const filmsEndpoint = "http://localhost/web_app_xampp_tasks/Films_full_stack_crud_exercise/model/search_films.php";
     $.ajax({
         url: filmsEndpoint,
         type: "GET",
@@ -19,9 +19,9 @@ function displayMovies(data) {
     for (let i = 0; i < data.length; i++) {
         $("#moviesTable")
             .append($("<tr></tr>")
-                // .append("<td>" + data[i].title + "</td>")
-                // .append("<td>" + data[i].release_date + "</td>")
-                // .append("<td>" + data[i].runtime + "</td>")
+                .append("<td>" + data[i].title + "</td>")
+                .append("<td>" + data[i].release_date + "</td>")
+                .append("<td>" + data[i].runtime + "</td>")
             )
     }
 }
