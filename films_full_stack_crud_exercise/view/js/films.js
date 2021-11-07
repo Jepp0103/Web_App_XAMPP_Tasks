@@ -7,7 +7,7 @@ function searchFilms() {
         if (filmTitleInput != null || filmTitleInput != "") {
             console.log("getting here??")
             const filmsEndpoint = "http://localhost/web_app_xampp_tasks/Films_full_stack_crud_exercise/model/search_films.php";
-            let form = new FormData();
+            const form = new FormData();
             form.append("filmTitleInput", filmTitleInput);
             $.ajax({
                 url: filmsEndpoint,
