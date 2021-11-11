@@ -25,5 +25,9 @@
 
             return($cnDB);   
         }
+
+        public function disconnect($cnDB) {
+            $cnDB = null;
+        }
     }
 ?>
