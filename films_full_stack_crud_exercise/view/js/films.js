@@ -2,20 +2,21 @@ searchFilms()
 
 function searchFilms() {
     $("#searchMovieBtn").click(function () {
-        const filmTitleInput = $("#filmTitleInput").val()
-        console.log("filmtitleinput", filmTitleInput)
-        if (filmTitleInput != null || filmTitleInput != "") {
+        const filmSearchText = $("#filmTitleInput").val()
+        console.log("filmSearchText", filmSearchText)
+        filmSearchText.empty()
+        if (filmSearchText != null || filmSearchText != "") {
             console.log("getting here??")
-            const filmsEndpoint = "http://localhost/web_app_xampp_tasks/Films_full_stack_crud_exercise/model/search_films.php";
-            const form = new FormData();
-            form.append("filmTitleInput", filmTitleInput);
+            const filmsEndpoint = "http://localhost/web_app_xampp_tasks/Films_full_stack_crud_exercise/model/main.php";
+
             $.ajax({
                 url: filmsEndpoint,
                 type: "POST",
-                data: form,
-                dataType: "json",
-                processData: false,
-                contentType: false
+                data: {
+                    action: "search",
+                    film_search_text: filmSearchText
+                },
+                dataType: "json"
             }).done(function (data) {
                 console.log("Data:", data)
                 displayMovies(data)
