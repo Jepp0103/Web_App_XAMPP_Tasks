@@ -3,13 +3,13 @@
     
     $movie = new Movie();
 
-
     switch($_POST["action"]) {
         case "search":
             echo json_encode($movie->searchMovies($_POST["film_search_text"]));
             break;
         case "add":
-            echo json_encode("not yet implemented");
+            $movie->addMovie($_POST["title_input"], $_POST["overview_input"], $_POST["date_input"], $_POST["runtime_input"]);
+        
     }
     
 ?>
