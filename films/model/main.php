@@ -9,7 +9,10 @@
             break;
         case "add":
             $movie->addMovie($_POST["title_input"], $_POST["overview_input"], $_POST["date_input"], $_POST["runtime_input"]);
-        
+            break;
+        case "delete":
+            $movie->deleteMovie($_POST["movie_id"]);
+            break;
     }
     
 ?>

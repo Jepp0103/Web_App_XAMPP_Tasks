@@ -1,15 +1,15 @@
 $(document).ready(function () {
     $("#searchMovieBtn").off().click(function () { //If button is fires multiple times use undbind method
-        searchFilms()
+        searchMovies()
     })
 
     openModal()
 })
 
-function searchFilms() {
+function searchMovies() {
     $(".movieResults").remove()
     const filmSearchText = $("#filmSearchText").val()
-    if (filmSearchText != null || filmSearchText != "") {
+    if (filmSearchText !== null || filmSearchText !== "") {
         $.ajax({
             url: "http://localhost/web_app_xampp_tasks/films/model/main.php",
             type: "POST",
@@ -28,16 +28,19 @@ function searchFilms() {
 }
 
 function displayMovies(data) {
-    console.log("films data:", data)
-
     for (let i = 0; i < data.length; i++) {
         $("#moviesTable")
             .append($("<tr></tr>").attr("class", "movieResults").attr("id", data[i].movie_id)
                 .append("<td>" + data[i].title + "</td>")
                 .append("<td>" + data[i].release_date + "</td>")
                 .append("<td>" + data[i].runtime + "</td>")
+                .append($("<button></button>").text("D").attr("class", "delBtn"))
+                .append($("<button></button>").text("E").attr("class", "editBtn"))
+                .append($("<button></button>").text("I").attr("class", "infBtn"))
             )
     }
+
+    deleteMovie()
 }
 
 function openModal() {
@@ -81,7 +84,22 @@ function addMovie() {
 }
 
 function deleteMovie() {
-
+    $(".delBtn").off().click(function () {
+        console.log("aaaaah")
+        const movieId = $(this).parent().attr("id")
+        console.log("movieid", movieId)
+        $.ajax({
+            url: "http://localhost/web_app_xampp_tasks/films/model/main.php",
+            type: "POST",
+            data: {
+                action: "delete",
+                movie_id: movieId
+            },
+            dataType: "json"
+        }).done(function (data) {
+            console.log(data)
+        })
+    })
 }
 
 function updateMovie() {
