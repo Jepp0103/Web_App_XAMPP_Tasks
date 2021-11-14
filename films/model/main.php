@@ -13,6 +13,12 @@
         case "delete":
             $movie->deleteMovie($_POST["movie_id"]);
             break;
+        case "get_movie":
+            $movie->getMovie($_POST["movie_id"]);
+            break;
+        case "update":
+            $movie->updateMovie($_POST["movie_id"], $_POST["title_input"], $_POST["overview_input"], $_POST["date_input"], $_POST["runtime_input"]);
+            break;
     }
     
 ?>
