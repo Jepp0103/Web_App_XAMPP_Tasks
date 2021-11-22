@@ -84,7 +84,7 @@
             }
         }
 
-        function updateMovie($titleInput, $overViewInput, $releaseDateInput, $runtimeInput) { //A function where it is important to remove all child tables first before the actual table can be removed
+        function updateMovie($movieId, $titleInput, $overViewInput, $releaseDateInput, $runtimeInput) { //A function where it is important to remove all child tables first before the actual table can be removed
             $movie_db = new MovieDB();
             $connection = $movie_db->connect();
 
@@ -95,10 +95,10 @@
                                     WHERE movie_id = ?;
                                 SQL;
 
-                $deletion_exec = $connection->prepare($deletion_query);
-                $deletion_exec->execute([$titleInput, $overViewInput, $releaseDateInput, $runtimeInput, $movieId]);
+                $update_exec = $connection->prepare($update_query);
+                $update_exec->execute([$titleInput, $overViewInput, $releaseDateInput, $runtimeInput, $movieId]);
 
-                $deletion_exec = null;
+                $update_exec = null;
                 $movie_db->disconnect($connection);
 
                 echo json_encode("Movie " .$movieId. " updated");
