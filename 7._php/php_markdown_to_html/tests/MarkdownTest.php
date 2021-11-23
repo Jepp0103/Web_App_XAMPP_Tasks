@@ -32,14 +32,41 @@
         }
 
         public function testReplaceByHtmlTagsEm() {
-            $text = "I just love *em text*.";
-            $result = replaceByHTMLTags($text, '*', 'em');
-            $this->assertEquals("I just love <em>em text</em>.", $result, "Actual: $result");
+            $text = "I just love *em text*."; // Arrange
+            $result = replaceByHTMLTags($text, '*', 'em'); // Act 
+            $this->assertEquals("I just love <em>em text</em>.", $result, "Actual: $result"); // Assert
         }
 
         public function testReplaceImages() {
-            $text = "![Tux, the Linux mascot](/assets/images/tux.png)";
+            $imageText = "![Duck](../assets/duck.png)"; // Arrange
+            $result = replaceImages($imageText); // Act
+            $this->assertEquals("<img src=\"../assets/duck.png\" alt=\"Duck\">", $result, "Actual: $result");
+        }
+
+        public function testReplaceUrls() {
+            $urlText = "[Duck Duck Go](https://duckduckgo.com)";
+            $result = replaceURLs($urlText);
+            $this->assertEquals("<a href=\"https://duckduckgo.com\" target=\"_blank\" title=\"Duck Duck Go\">Duck Duck Go</a>", $result, "Actual: $result");
+        }
+
+        public function testReplaceUrlsFailure() {
+            $urlText = "[Duck Duck Go](https://duckduckgo.com)";
+            $result = replaceURLs($urlText);
+            $this->assertEquals("<a href=\"https://duckduckgo.com\">Duck Duck Go</a>", $result, "Actual: $result");
+        }
+
+        // public function testMarkdown2Html() {
+        //     $code = "![Duck](../assets/duck.png)" + 
+        //             "[Duck Duck Go](https://duckduckgo.com)";
+        //     $result = markdown2html($code);
+        //     $this->assertEquals("<img src=\"../assets/duck.png\" alt=\"Duck\"><a href=\"https://duckduckgo.com\">Duck Duck Go</a>", $result, "Actual: $result");
+        // }
+
+        public function testMarkdown2HtmlFailure() {
+            $code = "![Duck](../assets/duck.png)" + 
+                    "[Duck Duck Go](https://duckduckgo.com)";
+            $result = markdown2html($code);
+            $this->assertEquals("<img src=\"../assets/duck.png\" alt=\"Duck\"><a href=\"https://duckduckgo.com\">Duck Duck Go</a>", $result, "Actual: $result");
         }
     }
-
 ?>
