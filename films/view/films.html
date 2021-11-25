@@ -1,0 +1,55 @@
+<main>
+    <section>
+        <label for="filmSearchText" id="filmTitle">Film title</label>
+        <br>
+        <input id="filmSearchText" name="filmSearchText" type="text" required>
+        <button id="searchMovieBtn" name="searchMovieBtn" type="submit">Search</button>
+        <button id="newMovieBtn">New movie</button>
+        <div id="filmsModal" class="modal">
+            <div class="modal-content">
+                <section class="modalHeader">
+                    <h3>New film</h3>
+                </section>
+                <section>
+                    <label for="titleInput" id="titleLabel">Title</label>
+                    <br>
+                    <input id="titleInput" type="text" required>
+                    <br>
+                    <label for="overviewTextArea" id="overviewLabel">Overview</label>
+                    <br>
+                    <textarea id="overviewTextArea" type="text" required></textarea>
+                    <br>
+                    <label for="dateInput" id="dateLabel">Release date</label>
+                    <br>
+                    <input id="dateInput" type="date" required>
+                    <br>
+                    <label for="runtimeInput" id="runtimeLabel">Runtime(min.)</label>
+                    <br>
+                    <input id="runtimeInput" type="number" required>
+                    <br>
+                    <label for="directorsTextArea" id="directorsLabel">Directors</label>
+                    <br>
+                    <textarea id="directorsTextArea" type="text" required></textarea>
+                    <br>
+                    <label for="actorsTextArea" id="actorsLabel">Actors</label>
+                    <br>
+                    <textarea id="actorsTextArea" type="text" required></textarea>
+                    <br>
+                </section>
+                <section class="modalFooter">
+                    <button class="close">Cancel</button>
+                </section>
+            </div>
+        </div>
+    </section>
+    <section>
+        <table id="moviesTable">
+            <tr>
+                <th>Title</th>
+                <th>Release date</th>
+                <th>Runtime</th>
+            </tr>
+        </table>
+    </section>
+    <script src="./js/films.js"></script>
+</main>
