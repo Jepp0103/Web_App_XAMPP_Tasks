@@ -18,6 +18,10 @@ header, footer {
     background-color: var(--colorBgHeader);
 }
 
+header > p {
+    color: var(--colorTextSecondary)
+}
+
 nav {
     background-color: lightblue;
 }

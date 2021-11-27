@@ -3,36 +3,38 @@
     require_once("films_conn_db.php");
 
     class Authentication {
+
         function validateIfUserExists($emailInput, $passwordInput){
             $movie_db = new MovieDB();
             $connection = $movie_db->connect();
 
             if($connection) {
-                $pwd_query = <<<'SQL'
-                    SELECT pwd FROM user 
+                $user_query = <<<'SQL'
+                    SELECT user_id, pwd, first_name, last_name FROM user 
                         WHERE email = ?;
                     SQL;
 
-                $pwd_exec = $connection->prepare($pwd_query);
-                $pwd_exec->execute([$emailInput]);
-                $pwd_array = $pwd_exec->fetch();
+                $user_exec = $connection->prepare($user_query);
+                $user_exec->execute([$emailInput]);
+                $user_array = $user_exec->fetch();
                 
-                if(!empty($pwd_array)){
-                    $stored_hash_pwd = $pwd_array["pwd"];
-                    echo($stored_hash_pwd);
-
-                    $pwd_exec = null;
+                if(!empty($user_array)){
+                    $stored_hash_pwd = $user_array["pwd"];
+                    $user_exec = null;
                     $movie_db->disconnect($connection);
 
                     if (password_verify($passwordInput, $stored_hash_pwd)) {
                         session_start();
-                        $_SESSION["user"] = $emailInput; //Setting session
-                        echo json_encode(true);
+                        $_SESSION["user_id"] = $user_array["user_id"]; //Setting session
+                        $_SESSION["email"] = $emailInput;
+                        $_SESSION["first_name"] = $user_array["first_name"];
+                        $_SESSION["last_name"] = $user_array["last_name"];
+                        return true;
                     } else {
-                        echo json_encode(false);
+                        return false;
                     }
                 } else {
-                    echo json_encode(false);
+                    return false;
                 }
             }
         }
@@ -53,10 +55,15 @@
                 $insertion_exec->execute([$firstNameInput, $lastNameInput, $emailInput, $pwd]);
                 $insertion_exec = null;
                 $movie_db->disconnect($connection);
-                echo json_encode("User " .$firstNameInput." ".$lastNameInput. " added");
             } else {
                 return false;
             }
+        }
+
+        function logout() {
+            session_start();
+            session_destroy();
+            echo json_encode("Logged out");
         }
     }
 

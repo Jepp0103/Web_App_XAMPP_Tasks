@@ -1,17 +1,12 @@
 $(document).ready(function () {
     const filmsEndpoint = "http://localhost/web_app_xampp_tasks/films/model/main.php"
-    $("#searchMovieBtn").off().click(function () { //If button is fires multiple times use undbind method
+
+    $("#searchMovieBtn").off().click(function () { //If button fires multiple times use undbind method
         searchMovies(filmsEndpoint)
     })
-
+    
     $("#newMovieBtn").off().click(function () {
-        //Emptying all inputs for new movie in modal
-        $("#titleInput").attr("")
-        $("#overviewTextArea").attr("")
-        $("#dateInput").attr("")
-        $("#runtimeInput").attr("")
-        $("#directorsTextArea").attr("")
-        $("#actorsTextArea").attr("")
+        closeModal()
 
         $("#filmsModal").css("display", "block")
         $(".modalFooter")
@@ -82,9 +77,9 @@ function displayMovies(data, filmsEndpoint) {
 
 function closeModal() {
     $(".close").click(function () {
-        $("#addFilmBtn").remove()
         $("#editFilmBtn").remove()
         $("#filmsModal").css("display", "none")
+        $("#addFilmBtn").remove()
 
         $("#titleInput").removeAttr('readonly')
         $("#overviewTextArea").removeAttr('readonly')
@@ -97,27 +92,29 @@ function closeModal() {
 
 function addMovie(filmsEndpoint) {
     $("#addFilmBtn").off().click(function () {
-        const titleInput = $("#titleInput").val()
-        const overviewInput = $("#overviewTextArea").val()
-        const dateInput = $("#dateInput").val()
-        const runtimeInput = $("#runtimeInput").val()
-        const directorsInput = $("#directorsTextArea").val()
-        const actorsInput = $("#actorsTextArea").val()
         $.ajax({
             url: filmsEndpoint,
             type: "POST",
             data: {
                 action: "add",
-                title_input: titleInput,
-                overview_input: overviewInput,
-                date_input: dateInput,
-                runtime_input: runtimeInput,
-                directors_input: directorsInput,
-                actorsInput: actorsInput
+                title_input: $("#titleInput").val(),
+                overview_input: $("#overviewTextArea").val(),
+                date_input: $("#dateInput").val(),
+                runtime_input: $("#runtimeInput").val(),
+                directors_input: $("#directorsTextArea").val(),
+                actorsInput: $("#actorsTextArea").val()
             },
             dataType: "json"
         }).done(function (data) {
             console.log(data)
+            $("#titleInput").val("")
+            $("#overviewTextArea").val("")
+            $("#dateInput").val("")
+            $("#runtimeInput").val("")
+            $("#directorsTextArea").val("")
+            $("#actorsTextArea").val("")
+            $("#addFilmBtn").remove()
+
             $("#filmsModal").css("display", "none")
         })
     })

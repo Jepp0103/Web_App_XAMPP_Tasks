@@ -43,7 +43,6 @@
                 $insertion_exec->execute([$titleInput, $overViewInput, $releaseDateInput, $runtimeInput]);
                 $insertion_exec = null;
                 $movie_db->disconnect($connection);
-                echo json_encode("Movie " .$titleInput. " added");
             } else {
                 return false;
             }
@@ -77,8 +76,6 @@
 
                 $deletion_exec = null;
                 $movie_db->disconnect($connection);
-
-                echo json_encode("Movie " .$movieId. " deleted");
             } else {
                 return false;
             }
@@ -100,8 +97,6 @@
 
                 $update_exec = null;
                 $movie_db->disconnect($connection);
-
-                echo json_encode("Movie " .$movieId. " updated");
             } else {
                 return false;
             }
@@ -123,7 +118,7 @@
                 $movie_exec = null;
                 $movie_db->disconnect($connection);
 
-                echo json_encode($chosenMovie);
+                return $chosenMovie;
             } else {
                 return false;
             }
